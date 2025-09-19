@@ -5,8 +5,12 @@ void main() {
 
   // Simulasi input (misalnya angka 17)
   int number = getValidInput(17);
-  print('Input berhasil divalidasi: $number');
-  print('Program akan dikembangkan lebih lanjut...');
+
+  // Cek prima
+  bool isPrime = checkPrime(number);
+
+  // Tampilkan hasil
+  displayResult(number, isPrime);
 }
 
 /// Fungsi untuk validasi input
@@ -19,6 +23,48 @@ int getValidInput(int input) {
     print('Input valid!');
     return input;
   }
+}
+
+/// Fungsi untuk cek bilangan prima 
+bool checkPrime(int number) {
+  if (number <= 1) return false;
+  if (number <= 3) return true;
+  if (number % 2 == 0 || number % 3 == 0) return false;
+
+  for (int i = 5; i * i <= number; i += 6) {
+    if (number % i == 0 || number % (i + 2) == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/// Fungsi untuk menampilkan hasil 
+void displayResult(int number, bool isPrime) {
+  print('\nHASIL PENGECEKAN');
+  print('Bilangan: $number');
+
+  if (isPrime) {
+    print('Status: BILANGAN PRIMA');
+    print('Faktor: 1, $number');
+  } else {
+    print('Status: BUKAN BILANGAN PRIMA');
+    print('Faktor: ${getFactors(number).join(', ')}');
+  }
+}
+
+/// Fungsi untuk mencari faktor 
+List<int> getFactors(int number) {
+  List<int> factors = [];
+  int i = 1;
+
+  while (i <= number) {
+    if (number % i == 0) {
+      factors.add(i);
+    }
+    i++;
+  }
+  return factors;
 }
 
 
